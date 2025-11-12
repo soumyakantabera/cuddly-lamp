@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EuroMitra - Your Mitra for Trips Abroad</title>
+    <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --mitra-blue: #1F6FEB;
+            --sunrise-saffron: #F4A300;
+            --charcoal: #1E1E1E;
+            --stone-grey: #8C8F94;
+            --sky-trail: #5AA6FF;
+            --soft-sand: #F4F2EE;
+            --alpine-green: #1FA97A;
+            --terracotta: #D96B38;
+            --aurora-mint: #7EE7D2;
+        }
+
+        body {
+            font-family: 'Epilogue', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--charcoal);
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--mitra-blue);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .logo small {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: normal;
+            opacity: 0.9;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .cta-button {
+            background: var(--sunrise-saffron);
+            color: var(--charcoal);
+            padding: 0.6rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Page sections */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1600') center/cover;
+            color: white;
+            padding: 8rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            color: #f0f0f0;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--mitra-blue);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            padding: 1rem 2rem;
+            border: 2px solid var(--sky-trail);
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: var(--sky-trail);
+        }
+
+        .trust-badges {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .bg-sand {
+            background: var(--soft-sand);
+        }
+
+        /* Section Headers */
+        .section-header {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--charcoal);
+        }
+
+        /* Grid Layouts */
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .card h3 {
+            margin-bottom: 1rem;
+            color: var(--mitra-blue);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px 10px 0 0;
+            margin: -2rem -2rem 1rem -2rem;
+        }
+
+        /* Pace Cards */
+        .pace-card {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 400px;
+            cursor: pointer;
+        }
+
+        .pace-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .pace-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            padding: 2rem;
+            color: white;
+        }
+
+        .pace-overlay h3 {
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Mode Comparison */
+        .mode-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .mode-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Testimonials */
+        .testimonial {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            margin-top: 1rem;
+            font-weight: 600;
+            font-style: normal;
+            color: var(--mitra-blue);
+        }
+
+        /* Route Cards */
+        .route-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .route-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .route-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .route-content {
+            padding: 1.5rem;
+        }
+
+        .route-meta {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+            color: var(--stone-grey);
+        }
+
+        .route-price {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--alpine-green);
+            margin: 1rem 0;
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--charcoal);
+            color: var(--soft-sand);
+            padding: 3rem 2rem 1rem;
+        }
+
+        .footer-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h4 {
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column a {
+            color: var(--soft-sand);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .footer-column a:hover {
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(244, 242, 238, 0.2);
+            font-size: 0.9rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            background: var(--mitra-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Accent Strips */
+        .accent-strip {
+            height: 4px;
+            background: var(--alpine-green);
+            margin-bottom: 2rem;
+        }
+
+        .divider {
+            height: 2px;
+            background: var(--terracotta);
+            max-width: 200px;
+            margin: 2rem auto;
+        }
+
+        /* Gradient BG */
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--aurora-mint), var(--sky-trail));
+        }
+
+        /* Timeline */
+        .timeline {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .timeline-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--mitra-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .timeline-content h3 {
+            margin-bottom: 0.5rem;
+            color: var(--mitra-blue);
+        }
+
+        .timeline-time {
+            font-size: 0.9rem;
+            color: var(--stone-grey);
+            margin-top: 0.5rem;
+        }
+
+        /* Filters */
+        .filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--mitra-blue);
+            background: white;
+            color: var(--mitra-blue);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--mitra-blue);
+            color: white;
+        }
+
+        /* B2B Section */
+        .b2b-bg {
+            background: var(--alpine-green);
+            color: white;
+        }
+
+        .b2b-bg .section-header {
+            color: white;
+        }
+
+        /* Checklist */
+        .checklist {
+            list-style: none;
+        }
+
+        .checklist li {
+            padding: 0.5rem 0;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .checklist li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--alpine-green);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Accordion */
+        .accordion-item {
+            background: white;
+            margin-bottom: 1rem;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            padding: 1rem;
+            background: var(--soft-sand);
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .accordion-content {
+            padding: 0 1rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s, padding 0.3s;
+        }
+
+        .accordion-item.active .accordion-content {
+            padding: 1rem;
+            max-height: 500px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--mitra-blue);
+                padding: 1rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .grid-2, .grid-3, .grid-4 {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header {
+                font-size: 1.8rem;
+            }
+
+            .timeline-item {
+                flex-direction: column;
+            }
+        }
+
+        /* Sticky CTA */
+        .sticky-cta {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 999;
+        }
+
+        .sticky-cta .btn-primary {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo" onclick="showPage('home')">
+                EuroMitra
+                <small>Your friendly route to the world</small>
+            </a>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#" onclick="showPage('how-it-works')">How It Works</a></li>
+                <li><a href="#" onclick="showPage('routes')">Sample Routes</a></li>
+                <li><a href="#" onclick="showPage('b2b')">B2B Partners</a></li>
+                <li><a href="#" onclick="showPage('about')">About</a></li>
+                <li><a href="https://wa.me/919674479949" class="cta-button">Plan My Trip</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Sticky CTA -->
+    <div class="sticky-cta">
+        <a class="btn-primary" href="https://wa.me/919674479949">Plan My Trip</a>
+    </div>
+
+    <!-- HOME PAGE -->
+    <div id="home" class="page active">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Your mitra for trips abroad.</h1>
+            <p>Custom itineraries for every budget, pace, and preference—car, train, or both.</p>
+            <div class="hero-ctas">
+                <a class="btn-primary" href="https://wa.me/919674479949">Plan my custom trip</a>
+                <button class="btn-secondary" onclick="showPage('routes')">See sample routes</button>
+            </div>
+            <div class="trust-badges">
+                <div class="badge">✓ Custom plans in 24 hrs</div>
+                <div class="badge">✓ Budget to luxury</div>
+                <div class="badge">✓ Visa-aware support</div>
+                <div class="badge">✓ 24×7 assistance</div>
+            </div>
+        </section>
+
+        <!-- How We're Different -->
+        <section class="container bg-sand">
+            <h2 class="section-header">Travel that fits you, not the other way around</h2>
+            <div class="grid-4">
+                <div class="card">
+                    <div class="card-icon">⚙️</div>
+                    <h3>Custom Everything</h3>
+                    <p>Your budget, pace, interests, dietary needs—tailored down to the day.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🚂</div>
+                    <h3>Mode Your Way</h3>
+                    <p>Self-drive, rail passes, metros, private transfers, or hybrids—optimised for comfort + cost.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">⭐</div>
+                    <h3>Niche & New</h3>
+                    <p>Film trails, architecture walks, pilgrimage routes, vineyards, Christmas markets, aurora hunts.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🛡️</div>
+                    <h3>Full Support</h3>
+                    <p>Visa pointers, forex tips, SIM cards, transfers, insurance—before, during, and after.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pick Your Pace -->
+        <section class="container">
+            <h2 class="section-header">Tell your pace. We'll map your place.</h2>
+            <div class="grid-3">
+                <div class="pace-card">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800" alt="Leisure">
+                    <div class="pace-overlay">
+                        <h3>Leisure</h3>
+                        <p>Slow mornings, long lunches, golden sunsets. Your playlist, our perfectly-timed stops.</p>
+                        <a class="btn-secondary" style="margin-top: 1rem; display: inline-block;" href="https://wa.me/919674479949">Plan a leisure trip</a>
+                    </div>
+                </div>
+                <div class="pace-card">
+                    <img src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=800" alt="Balanced">
+                    <div class="pace-overlay">
+                        <h3>Balanced</h3>
+                        <p>Sightsee by day, stroll by night. Museums, gelato, stroller-friendly streets—real life, real fun.</p>
+                        <a class="btn-secondary" style="margin-top: 1rem; display: inline-block;" href="https://wa.me/919674479949">Plan a balanced trip</a>
+                    </div>
+                </div>
+                <div class="pace-card">
+                    <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800" alt="Fast-Paced">
+                    <div class="pace-overlay">
+                        <h3>Fast-Paced</h3>
+                        <p>Back-to-back thrills, perfectly-timed trains. 7 cities, 10 days, zero confusion.</p>
+                        <a class="btn-secondary" style="margin-top: 1rem; display: inline-block;" href="https://wa.me/919674479949">Plan a fast trip</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Choose Your Mode -->
+        <section class="container bg-sand">
+            <div class="accent-strip"></div>
+            <h2 class="section-header">Train or car? Let's price both.</h2>
+            <div class="grid-2">
+                <div class="mode-card">
+                    <div class="mode-icon">🚗</div>
+                    <h3>Self-Drive Freedom</h3>
+                    <p>Your playlists, your stops, scenic routes on your time. Perfect for couples and small groups seeking flexibility.</p>
+                    <p style="margin: 1rem 0; font-weight: 600;">Sample: Alps road trip, Tuscan vineyards</p>
+                    <button class="btn-primary" onclick="showPage('routes')">Explore self-drive routes</button>
+                </div>
+                <div class="mode-card">
+                    <div class="mode-icon">🚄</div>
+                    <h3>Train + Metro Ease</h3>
+                    <p>Stress-free city hopping, metro proximity hotels, no parking worries. Ideal for families and budget travelers.</p>
+                    <p style="margin: 1rem 0; font-weight: 600;">Sample: Paris-Amsterdam-Brussels loop</p>
+                    <button class="btn-primary" onclick="showPage('routes')">Explore rail routes</button>
+                </div>
+            </div>
+            <p style="text-align: center; margin-top: 2rem; font-style: italic; color: var(--stone-grey);">Or mix both—we optimize for your journey.</p>
+        </section>
+
+        <!-- Who We Travel With -->
+        <section class="container">
+            <div class="divider"></div>
+            <h2 class="section-header">From quiet alleys to shared cheers—your crowd, your cadence</h2>
+            <div class="grid-4">
+                <div class="card">
+                    <div class="card-icon">🧳</div>
+                    <h3>Solo Explorers</h3>
+                    <p>Quiet cafés, your rhythm, safe neighborhoods. We get it.</p>
+                    <span style="display: inline-block; background: var(--aurora-mint); padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.9rem; margin-top: 1rem;">Solo-friendly</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💑</div>
+                    <h3>Couples</h3>
+                    <p>Rooftop dinners, hidden lanes, no group tours cramping your vibe.</p>
+                    <span style="display: inline-block; background: var(--aurora-mint); padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.9rem; margin-top: 1rem;">Romance-ready</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon">👨‍👩‍👧‍👦</div>
+                    <h3>Families</h3>
+                    <p>Kid-approved museums, early dinners, stroller routes, backup plans.</p>
+                    <span style="display: inline-block; background: var(--aurora-mint); padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.9rem; margin-top: 1rem;">Family-easy</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon">👥</div>
+                    <h3>Groups</h3>
+                    <p>Shared rooms, group meals, transport that clicks. Value trips that don't feel budget.</p>
+                    <span style="display: inline-block; background: var(--aurora-mint); padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.9rem; margin-top: 1rem;">Group-smart</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sample Routes -->
+        <section class="container bg-sand">
+            <h2 class="section-header">Real trips, real budgets</h2>
+            <div class="grid-3">
+                <div class="route-card">
+                    <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800" alt="Paris">
+                    <div class="route-content">
+                        <h3>Paris + Amsterdam + Brussels</h3>
+                        <p style="color: var(--stone-grey); margin: 0.5rem 0;">Balanced | Mid Spend</p>
+                        <div class="route-meta">
+                            <span>📍 10 days</span>
+                            <span>🚆 Rail pass</span>
+                            <span>👨‍👩‍👧‍👦 Family-friendly</span>
+                        </div>
+                        <p>Hotels near metros, museum fast-tracks, that café you'll dream about later.</p>
+                        <div class="route-price">From ₹1,45,000/person</div>
+                        <button class="btn-primary" onclick="showPage('routes')">View full itinerary</button>
+                    </div>
+                </div>
+                <div class="route-card">
+                    <img src="https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=800" alt="Alps">
+                    <div class="route-content">
+                        <h3>Alpine Lakes Self-Drive</h3>
+                        <p style="color: var(--stone-grey); margin: 0.5rem 0;">Leisure | Luxury</p>
+                        <div class="route-meta">
+                            <span>📍 8 days</span>
+                            <span>🚗 Self-drive</span>
+                            <span>💑 Couples</span>
+                        </div>
+                        <p>Vineyard stays, mountain sunrises, zero rush. Hand-crafted stops for easy days.</p>
+                        <div class="route-price">From ₹2,10,000/person</div>
+                        <button class="btn-primary" onclick="showPage('routes')">View full itinerary</button>
+                    </div>
+                </div>
+                <div class="route-card">
+                    <img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=800" alt="Multi-city">
+                    <div class="route-content">
+                        <h3>Multi-City Budget Europe</h3>
+                        <p style="color: var(--stone-grey); margin: 0.5rem 0;">Fast-Paced | Budget</p>
+                        <div class="route-meta">
+                            <span>📍 10 days</span>
+                            <span>🚆 Trains</span>
+                            <span>👥 Groups</span>
+                        </div>
+                        <p>7 cities, hostel-style stays, group meals that make sense. Value that works.</p>
+                        <div class="route-price">From ₹89,000/person</div>
+                        <button class="btn-primary" onclick="showPage('routes')">View full itinerary</button>
+                    </div>
+                </div>
+            </div>
+            <p style="text-align: center; margin-top: 2rem;">
+                <a href="#" onclick="showPage('routes')" style="color: var(--mitra-blue); font-weight: 600; text-decoration: none;">Browse 40+ sample routes →</a>
+            </p>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="container">
+            <h2 class="section-header">What our mitras say</h2>
+            <div class="grid-3">
+                <div class="testimonial">
+                    <p>"EuroMitra turned our vague 'we want Europe' into a 12-day Switzerland-Italy dream. The visa guidance alone saved us weeks of stress!"</p>
+                    <p class="testimonial-author">— Priya & Ankit, Mumbai</p>
+                </div>
+                <div class="testimonial">
+                    <p>"Solo female travel can be scary. They picked safe neighborhoods, walkable routes, and even suggested cafés with WiFi. Felt like a friend planned it."</p>
+                    <p class="testimonial-author">— Rhea, Bangalore</p>
+                </div>
+                <div class="testimonial">
+                    <p>"Our B2B margins improved 18% after partnering with EuroMitra. Fast TATs, white-label ready, and clients love the customization."</p>
+                    <p class="testimonial-author">— Travel agent, Delhi</p>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 3rem; display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap;">
+                <span>⭐ Google Reviews 4.8★</span>
+                <span>✓ 500+ trips planned</span>
+                <span>✓ IATA affiliated</span>
+                <span>✓ Secure payments</span>
+            </div>
+        </section>
+
+        <!-- B2B Section -->
+        <section class="container b2b-bg">
+            <h2 class="section-header">B2B Partners—Ready itineraries, strong margins</h2>
+            <div class="grid-2">
+                <div>
+                    <ul class="checklist">
+                        <li>White-label custom itineraries</li>
+                        <li>24-48 hr turnaround</li>
+                        <li>Margin-friendly pricing</li>
+                        <li>Visa & ops support</li>
+                        <li>Seasonal packages ready to resell</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Growing your Europe portfolio? Let's collaborate.</h3>
+                    <p style="margin: 1rem 0;">Partner with EuroMitra and offer your clients custom Europe trips with minimal effort and maximum margins.</p>
+                    <a class="btn-primary" href="https://wa.me/919674479949">Become a partner</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why EuroMitra -->
+        <section class="container bg-sand">
+            <h2 class="section-header">Crafted in India, curated abroad</h2>
+            <div class="grid-3">
+                <div class="card">
+                    <div class="card-icon">💰</div>
+                    <h3>Rupee-Wise Routes</h3>
+                    <p>Budget planning that respects Indian spending habits—big-ticket moments without the waste.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">❤️</div>
+                    <h3>Culturally Aware</h3>
+                    <p>Dietary preferences, prayer times, festival seasons, family dynamics—we speak your language.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">✅</div>
+                    <h3>End-to-End Ease</h3>
+                    <p>Visa tips, forex, SIM cards, transfers, insurance, 24×7 on-trip support. Show up and glow.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA -->
+        <section class="container gradient-bg">
+            <div style="text-align: center; padding: 2rem; color: white;">
+                <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Ready to go?</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 2rem;">Get your custom plan in 24 hours. No commitment, just clarity.</p>
+                <a class="btn-primary" href="https://wa.me/919674479949">Get my custom plan</a>
+                <p style="margin-top: 1rem; font-size: 0.9rem;">Or call us: +91-9674479949 | WhatsApp chat available</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- ABOUT PAGE -->
+    <div id="about" class="page">
+        <section class="hero" style="padding: 5rem 2rem;">
+            <h1>Meet your travel mitra</h1>
+            <p>We plan travel the way Indians actually travel—thoughtful, value-smart, and full of heart.</p>
+        </section>
+
+        <section class="container">
+            <h2 class="section-header">Why we started</h2>
+            <div style="max-width: 800px; margin: 0 auto; font-size: 1.1rem; line-height: 1.8;">
+                <p>Travel shouldn't feel like choosing between your dream and your budget. Too many Indians skip Europe because packages feel rigid, or DIY planning feels overwhelming. We built EuroMitra to fix that—customized trips that respect your rupee, your pace, and your preferences.</p>
+                <p style="margin-top: 1.5rem;">'Mitra' means friend in Hindi. That's exactly what we are: your local guide to the world, fluent in both cultures.</p>
+            </div>
+        </section>
+
+        <section class="container bg-sand">
+            <h2 class="section-header">What We Believe</h2>
+            <div class="grid-3">
+                <div class="card">
+                    <div class="card-icon">✨</div>
+                    <h3>Customization Over Cookie-Cutter</h3>
+                    <p>No two travelers are the same. Your trip shouldn't be either.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💎</div>
+                    <h3>Value, Not Compromise</h3>
+                    <p>Budget-smart doesn't mean budget-sad. We find the moments that matter.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🤝</div>
+                    <h3>Support That Travels With You</h3>
+                    <p>From visa questions to mid-trip changes, we're a call away—24×7.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <h2 class="section-header">Our Team</h2>
+            <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+                <p style="font-size: 1.1rem; line-height: 1.8;">Travel designers, visa experts, on-ground partners across 30+ European cities. Collectively, we've planned 500+ trips and counting.</p>
+                <a class="btn-primary" style="margin-top: 2rem; display: inline-block;" href="https://wa.me/919674479949">Let's plan yours next</a>
+            </div>
+        </section>
+    </div>
+
+    <!-- HOW IT WORKS PAGE -->
+    <div id="how-it-works" class="page">
+        <section class="hero" style="padding: 5rem 2rem;">
+            <h1>Four steps from dream to departure</h1>
+        </section>
+
+        <section class="container">
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-icon">💬</div>
+                    <div class="timeline-content">
+                        <h3>Step 1: Tell Us Your Vibe</h3>
+                        <p>Fill our quick form or WhatsApp us. Share your budget, pace (leisure/balanced/fast), interests (nature/cities/food), travel dates, and who's coming.</p>
+                        <p class="timeline-time">⏱️ 5 minutes</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-icon">📋</div>
+                    <div class="timeline-content">
+                        <h3>Step 2: Get Your Custom Plan</h3>
+                        <p>Within 24 hours, receive a detailed day-by-day itinerary—hotels, transport modes, sights, meals, costs. Two free revisions included.</p>
+                        <p class="timeline-time">⏱️ 24 hours</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-icon">⚙️</div>
+                    <div class="timeline-content">
+                        <h3>Step 3: We Handle the Details</h3>
+                        <p>Once you approve, we book everything—flights, hotels, trains/cars, transfers, activities. Plus visa guidance, SIM cards, insurance, forex tips.</p>
+                        <p class="timeline-time">⏱️ 7-14 days pre-departure</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-icon">📱</div>
+                    <div class="timeline-content">
+                        <h3>Step 4: Travel & Stay Connected</h3>
+                        <p>Your trip, your rules. But if plans shift or questions pop up, our 24×7 support has your back—WhatsApp, call, or email.</p>
+                        <p class="timeline-time">⏱️ Throughout your trip</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container bg-sand">
+            <h2 class="section-header">What You Get</h2>
+            <div class="grid-2">
+                <ul class="checklist">
+                    <li>Day-by-day itinerary with maps</li>
+                    <li>Hotel bookings (near transport/walkable)</li>
+                    <li>Train/car rental confirmations</li>
+                    <li>Activity tickets & restaurant recs</li>
+                </ul>
+                <ul class="checklist">
+                    <li>Visa checklist & tips</li>
+                    <li>Emergency contacts & local SIM setup</li>
+                    <li>24×7 on-trip support</li>
+                    <li>Travel insurance options</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="container">
+            <h2 class="section-header">How we price</h2>
+            <div style="max-width: 800px; margin: 0 auto;">
+                <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;">Every trip is custom, so costs vary by:</p>
+                <ul style="font-size: 1.1rem; line-height: 1.8; margin-left: 2rem; margin-bottom: 2rem;">
+                    <li>Season & dates (peak vs shoulder)</li>
+                    <li>Hotel tier (budget/mid/luxury)</li>
+                    <li>Transport mode (train vs self-drive vs chauffeur)</li>
+                    <li>Group size (solo premiums vs group discounts)</li>
+                    <li>Add-ons (travel insurance, skip-the-line tickets, special experiences)</li>
+                </ul>
+                <p style="font-size: 1.1rem; line-height: 1.8; background: var(--soft-sand); padding: 1.5rem; border-radius: 10px;">Our planning fee starts at <strong>₹5,000 per trip</strong> (refundable if you book with us). Final trip cost ranges from <strong>₹75,000 to ₹3,00,000+ per person</strong> depending on your choices. Transparent quotes, zero hidden charges.</p>
+                <div style="text-align: center; margin-top: 2rem;">
+                    <a class="btn-primary" href="https://wa.me/919674479949">Tell us your vibe</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- SAMPLE ROUTES PAGE -->
+    <div id="routes" class="page">
+        <section class="hero" style="padding: 5rem 2rem;">
+            <h1>40+ routes. Every budget, pace, and vibe.</h1>
+        </section>
+
+        <section class="container">
+            <div class="filters">
+                <button class="filter-btn active">All</button>
+                <button class="filter-btn">Under ₹1L</button>
+                <button class="filter-btn">₹1-2L</button>
+                <button class="filter-btn">₹2L+</button>
+                <button class="filter-btn">Leisure</button>
+                <button class="filter-btn">Balanced</button>
+                <button class="filter-btn">Fast</button>
+                <button class="filter-btn">Train</button>
+                <button class="filter-btn">Self-drive</button>
+            </div>
+
+            <div class="grid-3">
+                <div class="route-card">
+                    <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800" alt="Paris">
+                    <div class="route-content">
+                        <h3>Paris + Amsterdam + Brussels</h3>
+                        <p style="color: var(--stone-grey); margin: 0.5rem 0;">Balanced | Mid Spend</p>
+                        <div class="route-meta">
+                            <span>📍 10 days</span>
+                            <span>🚆 Rail pass</span>
+                            <span>👨‍👩‍👧‍👦 Family</span>
+                        </div>
+                        <p>Hotels near metros, museum fast-tracks, that café you'll dream about later.</p>
+                        <div class="route-price">From ₹1,45,000/person</div>
+                        <button class="btn-primary">View details</button>
+                    </div>
+                </div>
+
+                <div class="route-card">
+                    <img src="https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=800" alt="Alps">
+                    <div class="route-content">
+                        <h3>Alpine Lakes Self-Drive</h3>
+                        <p style="color: var(--stone-grey); margin: 0.5rem 0;">Leisure | Luxury</p>
+                        <div class="route-meta">
+                            <span>📍 8 days</span>
+                            <span>🚗 Self-drive</span>
+                            <span>💑 Couples</span>
+                        </div>
+                        <p>Vineyard stays, mountain sunrises, zero rush.</p>
+                        <div class="route-price">From ₹2,10,000/person</div>
+                        <button class="btn-primary">View details</button>
+                    </div>
+                </div>
+
+                <div class="route-card">
+                    <img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=800" alt="Budget">
+                    <div class="route-content">
+                        <h3>Multi-City Budget Europe</h3>
+                        <p style="color: var(--stone-grey); margin: 0.5rem 0;">Fast-Paced | Budget</p>
+                        <div class="route-meta">
+                            <span>📍 10 days</span>
+                            <span>🚆 Trains</span>
+                            <span>👥 Groups</span>
+                        </div>
+                        <p>7 cities, hostel stays, group meals that make sense.</p>
+                        <div class="route-price">From ₹89,000/person</div>
+                        <button class="btn-primary">View details</button>
+                    </div>
+                </div>
+
+                <div class="route-card">
+                    <img src="https://images.unsplash.com/photo-1503220317375-aaad61436b1b?w=800" alt="Norway">
+                    <div class="route-content">
+                        <h3>Scandinavia Northern Lights</h3>
+                        <p style="color: var(--stone-grey); margin: 0.5rem 0;">Leisure | Luxury</p>
+                        <div class="route-meta">
+                            <span>📍 7 days</span>
+                            <span>🚗 Self-drive</span>
+                            <span>💑 Couples</span>
+                        </div>
+                        <p>Oslo fjords, aurora hunting, cozy cabins.</p>
+                        <div class="route-price">From ₹1,95,000/person</div>
+                        <button class="btn-primary">View details</button>
+                    </div>
+                </div>
+
+                <div class="route-card">
+                    <img src="https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=800" alt="Spain">
+                    <div class="route-content">
+                        <h3>Spanish Sun & Cities</h3>
+                        <p style="color: var(--stone-grey); margin: 0.5rem 0;">Balanced | Mid Spend</p>
+                        <div class="route-meta">
+                            <span>📍 9 days</span>
+                            <span>🚆 Train</span>
+                            <span>👨‍👩‍👧‍👦 Family</span>
+                        </div>
+                        <p>Barcelona, Madrid, Seville. Tapas, art, beaches.</p>
+                        <div class="route-price">From ₹1,35,000/person</div>
+                        <button class="btn-primary">View details</button>
+                    </div>
+                </div>
+
+                <div class="route-card">
+                    <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=800" alt="Italy">
+                    <div class="route-content">
+                        <h3>Italian Art & Wine Trail</h3>
+                        <p style="color: var(--stone-grey); margin: 0.5rem 0;">Leisure | Luxury</p>
+                        <div class="route-meta">
+                            <span>📍 10 days</span>
+                            <span>🚗 Self-drive</span>
+                            <span>💑 Couples</span>
+                        </div>
+                        <p>Florence, Tuscany, Rome. Vineyards, art, history.</p>
+                        <div class="route-price">From ₹2,25,000/person</div>
+                        <button class="btn-primary">View details</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- B2B PAGE -->
+    <div id="b2b" class="page">
+        <section class="hero" style="padding: 5rem 2rem;">
+            <h1>Partner with EuroMitra</h1>
+            <p>White-label Europe itineraries, strong margins, happy clients.</p>
+        </section>
+
+        <section class="container">
+            <h2 class="section-header">Why partner with us?</h2>
+            <div class="grid-3">
+                <div class="card">
+                    <div class="card-icon">🚀</div>
+                    <h3>Fast Turnaround</h3>
+                    <p>Custom itineraries in 24-48 hours. Quick responses, happy clients.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💼</div>
+                    <h3>White-Label Ready</h3>
+                    <p>Your branding, our expertise. Seamless client experience.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💰</div>
+                    <h3>Strong Margins</h3>
+                    <p>Competitive pricing with room for healthy profit margins.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="container bg-sand">
+            <h2 class="section-header">Our B2B Services</h2>
+            <div class="grid-2">
+                <div>
+                    <ul class="checklist">
+                        <li>Custom Europe itineraries</li>
+                        <li>Visa guidance & documentation</li>
+                        <li>Flight & hotel bookings</li>
+                        <li>Transport arrangements</li>
+                        <li>24×7 customer support</li>
+                    </ul>
+                </div>
+                <div>
+                    <ul class="checklist">
+                        <li>Seasonal package designs</li>
+                        <li>Marketing collateral</li>
+                        <li>Training & product familiarization</li>
+                        <li>Dedicated account manager</li>
+                        <li>Performance analytics</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <h2 class="section-header">Get Started</h2>
+            <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+                <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem;">Ready to offer your clients the best Europe travel experiences? Let's discuss how we can partner together.</p>
+                <a class="btn-primary" href="https://wa.me/919674479949">Contact us on WhatsApp</a>
+                <p style="margin-top: 2rem; color: var(--stone-grey);">Or email us at: euromitraforu@gmail.com</p>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-column">
+                <h4>EuroMitra</h4>
+                <ul>
+                    <li><a href="#" onclick="showPage('about')">About Us</a></li>
+                    <li><a href="#" onclick="showPage('how-it-works')">How It Works</a></li>
+                    <li><a href="#" onclick="showPage('b2b')">B2B Partners</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Destinations</h4>
+                <ul>
+                    <li><a href="#">France</a></li>
+                    <li><a href="#">Italy</a></li>
+                    <li><a href="#">Switzerland</a></li>
+                    <li><a href="#">Spain</a></li>
+                    <li><a href="#">Germany</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="tel:+919674479949">+91 96744 79949</a></li>
+                    <li><a href="mailto:euromitraforu@gmail.com">euromitraforu@gmail.com</a></li>
+                    <li><a href="https://wa.me/919674479949">WhatsApp</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Connect</h4>
+                <div class="social-icons">
+                    <a href="#"><span>FB</span></a>
+                    <a href="#"><span>IG</span></a>
+                    <a href="#"><span>LI</span></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 EuroMitra. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show the selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Close mobile menu if open
+            document.getElementById('navLinks').classList.remove('active');
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            showPage('home');
+        });
+    </script>
+</body>
+</html>
